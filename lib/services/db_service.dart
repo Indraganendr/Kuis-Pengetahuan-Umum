@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'dart:io';
 
 class DBService {
   static Database? _db;
@@ -8,7 +9,9 @@ class DBService {
   // Getter aman untuk _db
   static Database get db {
     if (_db == null) {
-      throw Exception("Database belum diinisialisasi. Panggil DBService.initDb() terlebih dahulu.");
+      throw Exception(
+        "Database belum diinisialisasi. Panggil DBService.initDb() terlebih dahulu.",
+      );
     }
     return _db!;
   }
@@ -17,8 +20,11 @@ class DBService {
   static Future<void> initDb() async {
     if (_db != null) return;
 
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+    // Hanya gunakan sqflite_ffi untuk desktop platforms
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
 
     final dbPath = join(await getDatabasesPath(), 'quiz_app.db');
 
@@ -50,10 +56,7 @@ class DBService {
 
   /// 🔐 Register user baru
   static Future<void> registerUser(String username, String password) async {
-    await db.insert('users', {
-      'username': username,
-      'password': password,
-    });
+    await db.insert('users', {'username': username, 'password': password});
   }
 
   /// 🔐 Cek apakah user ada
@@ -77,7 +80,10 @@ class DBService {
   }
 
   /// 💾 Simpan skor kuis
-  static Future<void> saveScore({required String username, required int score}) async {
+  static Future<void> saveScore({
+    required String username,
+    required int score,
+  }) async {
     final timestamp = DateTime.now().toIso8601String();
     await db.insert('scores', {
       'username': username,
@@ -102,7 +108,9 @@ class DBService {
   }
 
   /// 📋 Ambil skor user tertentu
-  static Future<List<Map<String, dynamic>>> getScoresByUser(String username) async {
+  static Future<List<Map<String, dynamic>>> getScoresByUser(
+    String username,
+  ) async {
     return await db.query(
       'scores',
       where: 'username = ?',
