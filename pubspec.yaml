@@ -1,0 +1,33 @@
+name: uts_ppb
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite_common_ffi: ^2.3.0+2 #sqflite agar bisa berjalan di platform desktop
+  sqflite: ^2.3.2 # Flutter Anda untuk menggunakan SQLite,
+  path: ^1.9.0 #Jalur file dan direktori
+  http: ^1.2.1 #Package ini menyediakan cara paling umum dan mudah untuk membuat permintaan jaringan HTTP (seperti GET, POST, PUT, DELETE).
+  html_unescape: ^2.0.0 #mengonversi entitas karakter HTML (misalnya, &amp;, &lt;, &quot;) kembali menjadi karakter aslinya (misalnya, &, <, "). 
+  shared_preferences: ^2.2.2 #Package ini digunakan untuk menyimpan data sederhana (seperti pengaturan pengguna, status login, atau tema aplikasi)
+  intl: ^0.19.0 #Pustaka ini sangat penting untuk membuat aplikasi yang mendukung banyak bahasa dan format regional.
+  device_preview: ^1.1.0 # tool untuk developer yang memungkinkan Anda melihat preview tampilan aplikasi Anda
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
