@@ -29,14 +29,15 @@ class _ReviewPageState extends State<ReviewPage> {
   ];
 
   void _showReviewDialog(String placeName) {
+    // ... (Fungsi ini tidak perlu diubah)
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       builder: (_) {
         return Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -136,6 +137,7 @@ class _ReviewPageState extends State<ReviewPage> {
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: 'com.example.app',
+            // tileProvider dihapus karena package caching dihapus
           ),
           MarkerLayer(markers: markers),
         ],
